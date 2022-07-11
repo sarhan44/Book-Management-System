@@ -1,0 +1,28 @@
+{
+  "name": "book-management-system",
+  "version": "1.0.0",
+  "description": "Book management system user can create his books, update book , delete book, other users can read ,or give reviews, or ratings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarhan44/Book-Management-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarhan44/Book-Management-System/issues"
+  },
+  "homepage": "https://github.com/sarhan44/Book-Management-System#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.3",
+    "nodemon": "^2.0.19"
+  }
+}
