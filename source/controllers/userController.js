@@ -3,6 +3,7 @@
 const userModel = require('../models/userModel')
 const jwt = require("jsonwebtoken")
 
+
 //=================[Validation Function]==============
 //----(Title Validation)
 const isvalid = function (title) {
@@ -45,7 +46,7 @@ let createUser = async (req, res) => {
         if (!(/^[6-9]\d{9}$/.test(phone))) return res.status(400).send({ status: false, message: "Phone Number Is Invalid" })
 
         //---(Email)
-        if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) return res.status(400).send({ status: false, message: `Email should be a valid email address` });
+        if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) return res.status(400).send({ status: false, message: `Email should be a valid email address` });
 
         //---(Password)
         if (!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,15}$/.test(password))) {
@@ -69,7 +70,7 @@ let createUser = async (req, res) => {
                     return res.status(400).send({ status: false, message: "enter valid street name" })
                 }
             }
-            
+
             if ("city" in req.body.address) {
                 if (!isValidvalue(city)) return res.send({ status: false, message: 'please enter street' })
                 let validateCity = /^[a-zA-z',.\s-]{1,25}$/gm
@@ -77,7 +78,7 @@ let createUser = async (req, res) => {
                     return res.status(400).send({ status: false, message: "enter valid city name" })
                 }
             }
-            
+
             if ("pincode" in req.body.address) {
                 if (!isValidvalue(pincode)) return res.send({ status: false, message: 'please enter street' })
                 let validatePincode = /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/gm  //must not start with 0,6 digits and spaces
@@ -96,7 +97,9 @@ let createUser = async (req, res) => {
 
         //----------[create]
         const savedData = await userModel.create(body)
-        const response = await userModel.findOne({_id:savedData._id}).select({__v:0})
+
+        const response = await userModel.findOne({ _id: savedData._id }).select({ __v: 0 })
+
         //---------[Response]
         res.status(201).send({ status: true, message: "Success", data: response })
     } catch (err) {

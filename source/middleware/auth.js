@@ -9,20 +9,20 @@ const authenticate = async (req, res, next) => {
         if (!token) return res.status(400).send({ status: false, message: "token must be present", });
 
         //-----(Decoding Token)
-        let decodedToken = jwt.verify(token, "project-3", (err, decoded) => {
-            if (err) {
-                res.status(401).send({ status: false, message: err.message })
-            } else {
-                return decoded
+        jwt.verify(token, "project-3", (error, decoded) => {
+            if (error) {
+                return res.status(401).send({ status: false, message: error.message })
+            } 
+            else {
+                req["userId"] = decoded.userId;
+                next()
             }
         })
-        //----(Set Id In Request)
-        req["userId"] = decodedToken.userId
-
+        
     } catch (err) {
         res.status(500).send({ status: false, message: err.message });
     }
-    next()
 }
 
 module.exports.authenticate = authenticate;
+
